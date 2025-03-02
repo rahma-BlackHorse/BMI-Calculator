@@ -1,7 +1,11 @@
 import 'package:bmicalc/constants/app_constants.dart';
+import 'package:bmicalc/views/result_view.dart';
 import 'package:bmicalc/widgets/control-container.dart';
+import 'package:bmicalc/widgets/custom-app-bar.dart';
+import 'package:bmicalc/widgets/custom-button.dart';
 import 'package:bmicalc/widgets/custom-gender-widg.dart';
 import 'package:flutter/material.dart';
+import 'package:bmicalc/models/bmi_calculator.dart';
 
 class BmiCalculator extends StatefulWidget {
   const BmiCalculator({super.key});
@@ -14,19 +18,12 @@ class _BmiCalculatorState extends State<BmiCalculator> {
   double height = 160;
   int weight = 60;
   int age = 15;
+  double bmi = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppConstants.scaffoldBackGroundColor,
-      appBar: AppBar(
-        title: Text(
-          "BMI Calculator",
-          style: TextStyle(
-              fontSize: 20, fontWeight: FontWeight.w600, color: Colors.white),
-        ),
-        centerTitle: true,
-        backgroundColor: AppConstants.appBarColor,
-      ),
+      appBar: CustomAppBar(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -64,7 +61,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             ),
             Slider(
                 min: 120,
-                max: 290,
+                max: 250,
                 value: height,
                 activeColor: AppConstants.sliderColor,
                 onChanged: ((double newValue) {
@@ -75,7 +72,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                CustomControlWedgit(
+                CustomControlWidget(
                   text: "Weight",
                   input: weight.toString(),
                   increment: () {
@@ -89,7 +86,7 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                     });
                   },
                 ),
-                CustomControlWedgit(
+                CustomControlWidget(
                     text: "Age",
                     input: age.toString(),
                     increment: () {
@@ -104,17 +101,18 @@ class _BmiCalculatorState extends State<BmiCalculator> {
                     })
               ],
             ),
-            InkWell(
-              child: Container(
-                alignment: Alignment.center,
-                color: AppConstants.sliderColor,
-                width: double.infinity,
-                height: 100,
-                child: Text(
-                  "CalCulate",
-                  style: TextStyle(fontSize: 32, color: Colors.white),
-                ),
-              ),
+            CustomButton(
+              text: "calculate",
+              onTap: () {
+                bmi = BmiCalculat.calculateBmi(weight, height);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ResultView(
+                        bmi: bmi,
+                      ),
+                    ));
+              },
             )
           ],
         ),

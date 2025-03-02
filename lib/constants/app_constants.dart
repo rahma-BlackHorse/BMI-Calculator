@@ -6,4 +6,5 @@ class AppConstants {
   static const textColor = Color(0xFF8B8C9E);
   static const sliderColor = Color(0xFFEB1555);
   static const buttonColor = Color(0xFF8B8C9E);
+  static const containerColor = Color(0xFF333244);
 }

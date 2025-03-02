@@ -1,8 +1,8 @@
 import 'package:bmicalc/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 
-class CustomControlWedgit extends StatelessWidget {
-  const CustomControlWedgit(
+class CustomControlWidget extends StatelessWidget {
+  const CustomControlWidget(
       {super.key,
       required this.text,
       required this.input,
